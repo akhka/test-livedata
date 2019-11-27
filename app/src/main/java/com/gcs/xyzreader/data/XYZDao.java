@@ -1,7 +1,6 @@
-package com.gcs.testuielements.data;
+package com.gcs.xyzreader.data;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -9,7 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.gcs.testuielements.models.XYZJson;
+import com.gcs.xyzreader.models.XYZJson;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.gcs.testuielements.viewmodel;
+package com.gcs.xyzreader.viewmodel;
 
 import android.app.Application;
 
@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.gcs.testuielements.data.XYZRepository;
-import com.gcs.testuielements.models.XYZJson;
+import com.gcs.xyzreader.data.XYZRepository;
+import com.gcs.xyzreader.models.XYZJson;
 
 import java.util.List;
 

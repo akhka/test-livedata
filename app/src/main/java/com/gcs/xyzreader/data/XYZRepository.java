@@ -1,4 +1,4 @@
-package com.gcs.testuielements.data;
+package com.gcs.xyzreader.data;
 
 import android.app.Application;
 import android.content.Context;
@@ -12,11 +12,10 @@ import android.os.Build;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.gcs.testuielements.models.XYZJson;
-import com.gcs.testuielements.service.RestApiService;
-import com.gcs.testuielements.service.RetrofitInstance;
+import com.gcs.xyzreader.models.XYZJson;
+import com.gcs.xyzreader.service.RestApiService;
+import com.gcs.xyzreader.service.RetrofitInstance;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -195,6 +194,16 @@ public class XYZRepository {
                     NetworkCapabilities nc = cm.getNetworkCapabilities(n);
                     return (nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI));
                 }
+            }
+        }
+
+        else {
+            Network n = cm.getActiveNetwork();
+
+            if (n != null) {
+                NetworkCapabilities nc = cm.getNetworkCapabilities(n);
+
+                return (nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI));
             }
         }
 

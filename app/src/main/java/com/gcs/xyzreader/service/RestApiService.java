@@ -1,6 +1,6 @@
-package com.gcs.testuielements.service;
+package com.gcs.xyzreader.service;
 
-import com.gcs.testuielements.models.XYZJson;
+import com.gcs.xyzreader.models.XYZJson;
 
 import java.util.List;
 

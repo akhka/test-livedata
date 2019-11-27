@@ -1,4 +1,4 @@
-package com.gcs.testuielements;
+package com.gcs.xyzreader;
 
 import android.content.Context;
 

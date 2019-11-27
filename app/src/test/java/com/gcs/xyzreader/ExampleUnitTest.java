@@ -1,4 +1,4 @@
-package com.gcs.testuielements;
+package com.gcs.xyzreader;
 
 import org.junit.Test;
 

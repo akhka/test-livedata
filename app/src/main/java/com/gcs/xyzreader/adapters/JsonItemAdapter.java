@@ -1,8 +1,12 @@
-package com.gcs.testuielements.adapters;
+package com.gcs.xyzreader.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.transition.Fade;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +14,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.gcs.testuielements.R;
-import com.gcs.testuielements.models.XYZJson;
+import com.gcs.xyzreader.DetailsActivity;
+import com.gcs.xyzreader.R;
+import com.gcs.xyzreader.data.ItemContract;
+import com.gcs.xyzreader.models.XYZJson;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -37,13 +44,36 @@ public class JsonItemAdapter extends RecyclerView.Adapter<JsonItemAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.json_item, parent, false);
+        final ViewHolder vh = new ViewHolder(view);
+        Fade fade = new Fade();
+        fade.excludeTarget(android.R.id.statusBarBackground, true);
+        fade.excludeTarget(android.R.id.navigationBarBackground, true);
+        ((Activity) context).getWindow().setEnterTransition(fade);
+        ((Activity) context).getWindow().setExitTransition(fade);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*Intent intent = new Intent(Intent.ACTION_VIEW, ItemContract.Items.buildItemUri(getItemId(vh.getAdapterPosition())));
+                intent.putExtra("xyzobject", getItemId(vh.getAdapterPosition()));
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation((Activity) context, vh.itemImage, "xyzobject");
+                context.startActivity(intent);*/
+
+                XYZJson object = new XYZJson(list.get(vh.getAdapterPosition()).getId(),
+                        list.get(vh.getAdapterPosition()).getTitle(),
+                        list.get(vh.getAdapterPosition()).getAuthor(),
+                        list.get(vh.getAdapterPosition()).getBody(),
+                        list.get(vh.getAdapterPosition()).getThumb(),
+                        list.get(vh.getAdapterPosition()).getPhoto(),
+                        list.get(vh.getAdapterPosition()).getPublishedDate());
+                Intent intent = new Intent(context, DetailsActivity.class);
+                intent.putExtra("object", object);
+                context.startActivity(intent);
+
 
             }
         });
-        return new ViewHolder(view);
+        return vh;
     }
 
     @Override
@@ -64,7 +94,6 @@ public class JsonItemAdapter extends RecyclerView.Adapter<JsonItemAdapter.ViewHo
                 }.execute().get();
                 if (holder.bitmap != null){
                     holder.itemImage.setImageBitmap(holder.bitmap);
-                    holder.bitmap = null;
                 }
             } catch (Exception e){
                 e.printStackTrace();

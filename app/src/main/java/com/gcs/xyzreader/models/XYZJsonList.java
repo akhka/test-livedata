@@ -1,4 +1,4 @@
-package com.gcs.testuielements.models;
+package com.gcs.xyzreader.models;
 
 import java.util.List;
 

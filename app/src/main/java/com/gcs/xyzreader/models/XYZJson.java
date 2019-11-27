@@ -1,4 +1,7 @@
-package com.gcs.testuielements.models;
+package com.gcs.xyzreader.models;
+
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -8,7 +11,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "xyz_table")
-public class XYZJson {
+public class XYZJson implements Parcelable {
 
     @PrimaryKey
     @ColumnInfo(name = "id")
@@ -39,6 +42,38 @@ public class XYZJson {
     @SerializedName("published_date")
     @Expose
     private String publishedDate;
+
+    public XYZJson(int id, String title, String author, String body, String thumb, String photo, String publishedDate) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.body = body;
+        this.thumb = thumb;
+        this.photo = photo;
+        this.publishedDate = publishedDate;
+    }
+
+    protected XYZJson(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        author = in.readString();
+        body = in.readString();
+        thumb = in.readString();
+        photo = in.readString();
+        publishedDate = in.readString();
+    }
+
+    public static final Creator<XYZJson> CREATOR = new Creator<XYZJson>() {
+        @Override
+        public XYZJson createFromParcel(Parcel in) {
+            return new XYZJson(in);
+        }
+
+        @Override
+        public XYZJson[] newArray(int size) {
+            return new XYZJson[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -94,5 +129,21 @@ public class XYZJson {
 
     public void setPublishedDate(String publishedDate) {
         this.publishedDate = publishedDate;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(title);
+        dest.writeString(author);
+        dest.writeString(body);
+        dest.writeString(thumb);
+        dest.writeString(photo);
+        dest.writeString(publishedDate);
     }
 }

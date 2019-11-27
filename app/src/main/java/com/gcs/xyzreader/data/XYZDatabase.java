@@ -1,4 +1,4 @@
-package com.gcs.testuielements.data;
+package com.gcs.xyzreader.data;
 
 import android.content.Context;
 
@@ -8,7 +8,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.gcs.testuielements.models.XYZJson;
+import com.gcs.xyzreader.models.XYZJson;
 
 @Database(entities = XYZJson.class, version = 1, exportSchema = false)
 public abstract class XYZDatabase extends RoomDatabase {
