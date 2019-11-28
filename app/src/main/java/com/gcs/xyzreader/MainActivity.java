@@ -72,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
+    // Check Network
     public boolean isNetworkConnected(){
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if (Build.VERSION.SDK_INT < 23){

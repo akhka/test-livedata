@@ -10,10 +10,12 @@ import android.os.Bundle;
 import android.transition.Fade;
 import android.widget.ImageView;
 
+import com.gcs.xyzreader.data.XYZRepository;
 import com.gcs.xyzreader.models.XYZJson;
 import com.squareup.picasso.Picasso;
 
 import java.net.URI;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,17 +25,24 @@ public class DetailsActivity extends AppCompatActivity {
     @BindView(R.id.details_imageview)
     ImageView imageView;
 
+    private XYZRepository repository;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
         Intent intent = getIntent();
-        XYZJson object = intent.getParcelableExtra("object");
+        //XYZJson object = intent.getParcelableExtra("object");
+
+        int id = intent.getIntExtra("id", -1);
+
+        List<XYZJson> list = repository.getByID(id);
+
 
         ButterKnife.bind(this);
 
-        setImageView(object.getPhoto());
+        setImageView(list.get(0).getThumb());
 
         Fade fade = new Fade();
         fade.excludeTarget(android.R.id.statusBarBackground, true);
@@ -46,8 +55,8 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
 
-    public void setImageView(String imageUrl){
-        Bitmap bitmap = null;
+    public void setImageView(final String imageUrl){
+        Bitmap bitmap;
 
         if (imageUrl != null){
             try{

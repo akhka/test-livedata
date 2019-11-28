@@ -54,21 +54,27 @@ public class JsonItemAdapter extends RecyclerView.Adapter<JsonItemAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 /*Intent intent = new Intent(Intent.ACTION_VIEW, ItemContract.Items.buildItemUri(getItemId(vh.getAdapterPosition())));
-                intent.putExtra("xyzobject", getItemId(vh.getAdapterPosition()));
+                intent.putExtra("xyzobject", getItemId(vh.getAdapterPosition()));*/
                 ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation((Activity) context, vh.itemImage, "xyzobject");
-                context.startActivity(intent);*/
+                        makeSceneTransitionAnimation((Activity) context, vh.itemImage, vh.itemImage.getTransitionName());
+                /*context.startActivity(intent);*/
 
-                XYZJson object = new XYZJson(list.get(vh.getAdapterPosition()).getId(),
+                /*XYZJson object = new XYZJson(list.get(vh.getAdapterPosition()).getId(),
                         list.get(vh.getAdapterPosition()).getTitle(),
                         list.get(vh.getAdapterPosition()).getAuthor(),
                         list.get(vh.getAdapterPosition()).getBody(),
                         list.get(vh.getAdapterPosition()).getThumb(),
                         list.get(vh.getAdapterPosition()).getPhoto(),
-                        list.get(vh.getAdapterPosition()).getPublishedDate());
+                        list.get(vh.getAdapterPosition()).getPublishedDate());*/
+
+                //Bundle extras = new Bundle();
+                //extras.putParcelable("object", object);
+                //extras.putParcelable("option", options.toBundle());
+
+
                 Intent intent = new Intent(context, DetailsActivity.class);
-                intent.putExtra("object", object);
-                context.startActivity(intent);
+                intent.putExtra("id", list.get(vh.getAdapterPosition()).getId());
+                context.startActivity(intent, options.toBundle());
 
 
             }

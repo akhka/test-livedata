@@ -30,4 +30,7 @@ public interface XYZDao {
     @Query("SELECT * FROM xyz_table ORDER BY title")
     LiveData<List<XYZJson>> getAll();
 
+    @Query("SELECT * FROM xyz_table WHERE id = :id")
+    List<XYZJson> getById(int id);
+
 }

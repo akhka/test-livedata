@@ -16,7 +16,9 @@ import com.gcs.xyzreader.models.XYZJson;
 import com.gcs.xyzreader.service.RestApiService;
 import com.gcs.xyzreader.service.RetrofitInstance;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -89,6 +91,23 @@ public class XYZRepository {
 
     public LiveData<List<XYZJson>> getAllJsonLD(){
         return allJson;
+    }
+
+    public List<XYZJson> getByID(int id){
+        List<XYZJson> list = new ArrayList<>();
+        try {
+            list = new GetByIdTask(dao).execute(id).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (list != null){
+            return list;
+        }
+        else {
+            return null;
+        }
     }
 
     public MutableLiveData<List<XYZJson>> getAllJsonMLD(){
@@ -176,6 +195,23 @@ public class XYZRepository {
         protected Void doInBackground(Void... voids) {
             dao.deleteAll();
             return null;
+        }
+    }
+
+
+    private static class GetByIdTask extends AsyncTask<Integer, Void, List<XYZJson>>{
+
+        private XYZDao dao;
+
+        public GetByIdTask(XYZDao dao){
+            this.dao = dao;
+        }
+
+
+
+        @Override
+        protected List<XYZJson> doInBackground(Integer... integers) {
+            return dao.getById(integers[0]);
         }
     }
 
